@@ -1,22 +1,29 @@
-<div id="<%= dom_id movie %>">
-  <p>
-    <strong>Title:</strong>
+
+  <td  class = <%= if params[:sort].nil?
+    'ASC'
+  
+  elsif params[:sort].split(' ')[0] == 'title'
+    params[:sort].split(' ')[1]
+  end  %>>
     <%= movie.title %>
-  </p>
+  </td>
 
-  <p>
-    <strong>Rating:</strong>
+  <td class = <%= unless params[:sort].nil?
+    if params[:sort].split(' ')[0] == 'rating'
+      params[:sort].split(' ')[1]
+    end 
+  end  %>> 
+    
     <%= movie.rating %>
-  </p>
+  </td>
 
-  <p>
-    <strong>Description:</strong>
-    <%= movie.description %>
-  </p>
 
-  <p>
-    <strong>Release date:</strong>
-    <%= movie.release_date %>
-  </p>
+  <td class = <%= unless params[:sort].nil?
+    if params[:sort].split(' ')[0] == 'release_date'
+      params[:sort].split(' ')[1]
+    end 
+  end  %>>
+    
+    <%= movie.release_date.strftime('%Y-%m-%d') %>
+  </td>
 
-</div>

@@ -2,15 +2,40 @@
 
 <% content_for :title, "Movies" %>
 
-<h1>Movies</h1>
+<h1 class="index">Movies</h1>
 
-<div id="movies">
-  <% @movies.each do |movie| %>
-    <%= render movie %>
-    <p>
-      <%= link_to "Show this movie", movie %>
-    </p>
-  <% end %>
+<div class="movies">
+  <table>
+    <tr>
+        
+        <th class = <%= if params[:sort].nil?
+                          'ASC'
+                        
+                        elsif params[:sort].split(' ')[0] == 'title'
+                          params[:sort].split(' ')[1]
+                        end  %>> Title <%= link_to 'ASC',  :sort => 'title ASC' %> <%= link_to 'DESC',  :sort => 'title DESC' %></th>
+        <th class = <%= unless params[:sort].nil?
+                          if params[:sort].split(' ')[0] == 'rating'
+                            params[:sort].split(' ')[1]
+                          end 
+                        end  %>>Rating <%= link_to 'ASC',  :sort => 'rating ASC' %> <%= link_to 'DESC',  :sort => 'rating DESC' %></th>
+        <th class = <%= unless params[:sort].nil?
+                          if params[:sort].split(' ')[0] == 'release_date'
+                            params[:sort].split(' ')[1]
+                          end 
+                        end  %>>Release Date <%= link_to 'ASC',  :sort => 'release_date ASC' %> <%= link_to 'DESC',  :sort => 'release_date DESC' %></th>  
+        
+        <th>Show Movie</th>
+    </tr>
+    <% @movies.each do |movie| %>
+      <tr>
+        <%= render movie %>
+        <td>
+          <%= link_to "Show this movie", movie %>
+        </td>
+      </tr>
+    <% end %>
+    </table>
 </div>
 
 <%= link_to "New movie", new_movie_path %>

@@ -4,6 +4,8 @@ class MoviesController < ApplicationController
   # GET /movies or /movies.json
   def index
     @movies = Movie.all
+    col = params[:sort] || 'title ASC' # Default sort column
+    @movies = Movie.order(col)
   end
 
   # GET /movies/1 or /movies/1.json
